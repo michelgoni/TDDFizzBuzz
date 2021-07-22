@@ -31,6 +31,8 @@ class TDDFizzBuzzTests: XCTestCase {
     func test_printsNonFizzBuzzNumbers() {
         expect(prints: 1, withResult: "1")
         expect(prints: 2, withResult: "2")
+        expect(prints: 4, withResult: "4")
+        expect(prints: 7, withResult: "7")
     }
     
     func test_printsFizzWhenNumberIsMultipleOfThree() {
@@ -62,4 +64,3 @@ class TDDFizzBuzzTests: XCTestCase {
     }
 
 }
-
