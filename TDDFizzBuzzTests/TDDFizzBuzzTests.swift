@@ -11,7 +11,14 @@ import XCTest
 final class FizzBuzzFactory {
     
     func retrieveResult(_ number: Int) -> String {
-        "\(number)"
+        
+        switch number % 3 == 0 {
+        case true:
+            return "Fizz"
+        default:
+            return "\(number)"
+        }
+        
     }
 }
 
@@ -21,6 +28,14 @@ class TDDFizzBuzzTests: XCTestCase {
         expect(prints: 1, withResult: "1")
         expect(prints: 2, withResult: "2")
     }
+    
+    func test_numberThreeDoesNotPrintFizz() {
+        doNotExpect(prints: 3, withResult: "3")
+    }
+    
+    func test_printsFizzWhenNumberIsMultipleOfThree() {
+        expect(prints: 3, withResult: "Fizz")
+    }
   
     
     //MARK: -- Private implementations
@@ -28,10 +43,16 @@ class TDDFizzBuzzTests: XCTestCase {
         FizzBuzzFactory()
     }
     
-    private func expect(prints number: Int, withResult result: String) {
+    private func expect(prints number: Int, withResult result: String, file: StaticString = #filePath, line: UInt = #line) {
         let sut = makeSut()
-        let result = sut.retrieveResult(number)
-        XCTAssertEqual(result, result)
+        let numberValue = sut.retrieveResult(number)
+        XCTAssertEqual(numberValue, result, file: file, line:line)
+    }
+    
+    private func doNotExpect(prints number: Int, withResult result: String, file: StaticString = #filePath, line: UInt = #line) {
+        let sut = makeSut()
+        let numberValue = sut.retrieveResult(number)
+        XCTAssertNotEqual(numberValue, result, file: file, line:line)
     }
 }
 
